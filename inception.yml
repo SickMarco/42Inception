@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    networks:
+      my_network:
+        aliases:
+          - nginx
+    volumes:
+      - ./conf/nginx.conf
+
+networks:
+  my_network: #bridge auto
+
+env_file:
+  - .env

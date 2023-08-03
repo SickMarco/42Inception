@@ -1,13 +1,16 @@
 FROM debian:bullseye
 
 # Install Nginx
-RUN apt-update -y && apt install nginx -y
+RUN apt update && apt-get install -y nginx openssl
 
 # Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt clean && rm -rf /var/lib/apt/lists/*
 
 # Copy the Nginx config
 COPY conf/nginx.conf /etc/nginx/nginx.conf
+
+# Create SSL directory
+RUN mkdir /etc/nginx/certs
 
 # Expose the port 443 for access
 EXPOSE 443/tcp
