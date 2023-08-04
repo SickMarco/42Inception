@@ -6,9 +6,6 @@ RUN apt update && apt-get install -y nginx openssl
 # Clear cache
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
-# Copy the Nginx config
-COPY conf/nginx.conf /etc/nginx/nginx.conf
-
 # Create SSL directory
 RUN mkdir /etc/nginx/certs
 
