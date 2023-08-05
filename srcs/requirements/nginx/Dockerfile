@@ -1,10 +1,7 @@
 FROM debian:bullseye
 
 # Install Nginx
-RUN apt update && apt-get install -y nginx openssl
-
-# Clear cache
-RUN apt clean && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt-get install -y nginx openssl && apt clean && rm -rf /var/lib/apt/lists/*
 
 # Create SSL directory
 RUN mkdir /etc/nginx/certs

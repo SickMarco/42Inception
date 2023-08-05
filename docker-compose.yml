@@ -13,8 +13,9 @@ services:
           - nginx
     volumes:
       - ./srcs/requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ${CERTS_SSL}:/etc/nginx/certs/
     env_file:
       - .env
 
 networks:
-  my_network: #bridge auto
+  my_network: #bridge
