@@ -2,21 +2,35 @@ version: '3.9'
 
 services:
 
+  mariadb:
+    build:
+      context: .
+      dockerfile: ./srcs/requirements/mariadb/Dockerfile
+    networks:
+      inception_network:
+        aliases:
+          - db
+    env_file:
+      - .env
+    volumes:
+      - ./data/db_data:/var/lib/mysql
+    restart: unless-stopped
+
   wordpress:
     build:
       context: .
       dockerfile: ./srcs/requirements/wordpress/Dockerfile
-    restart: unless-stopped
-    ports:
-      - "9000:9000"
+    depends_on:
+      - mariadb
     networks:
-      wp_network:
+      inception_network:
         aliases:
           - wp
     env_file:
       - .env
     volumes:
       - ./data/wp_data:/var/www/html
+    restart: unless-stopped
 
   nginx:
     build:
@@ -24,11 +38,10 @@ services:
       dockerfile: ./srcs/requirements/nginx/Dockerfile
     depends_on:
       - wordpress
-    restart: unless-stopped
     ports:
       - "443:443"
     networks:
-      wp_network:
+      inception_network:
         aliases:
           - nginx
     env_file:
@@ -37,6 +50,7 @@ services:
       - ${CERTS_SSL}:/etc/nginx/certs/
       - ./srcs/requirements/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./data/wp_data:/usr/share/nginx/html
+    restart: unless-stopped
 
 networks:
-  wp_network:
+  inception_network:
