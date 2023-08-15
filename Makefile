@@ -15,8 +15,9 @@ down:
 
 fclean:
 	@echo "\e[31mStopping containers && Removing images\e[0m"
-	@docker-compose -f $(COMPOSE_FILE) down --rmi local
-	@docker network prune -f
+	@docker-compose -f $(COMPOSE_FILE) down --rmi all
+	@docker container prune -f
+	@docker builder prune -af
 
 clean-volumes:
 	@echo "\e[31mRemoving volumes\e[0m"
