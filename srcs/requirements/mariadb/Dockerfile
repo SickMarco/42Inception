@@ -1,11 +1,15 @@
 FROM alpine:3.17
 
-RUN apk add --no-cache mariadb mariadb-client
+RUN apk update && apk add --no-cache mariadb mariadb-client && rm -rf /var/cache/apk/*
 
-RUN chown -R mysql:mysql /var/lib/mysql
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /var/lib/mysql /run/mysqld
 
-#ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-#ENV MYSQL_USER=${MYSQL_USER}
-#ENV MYSQL_PASSWORD=${MYSQL_PASSWORD}
+COPY ./conf/my.cnf /etc/mysql/my.cnf
 
-CMD ["mysqld"]
+COPY ./conf/start.sh /db/start.sh
+
+RUN mysql_install_db --basedir=/usr --datadir=/var/lib/mysql -v
+
+USER mysql:mysql
+
+CMD ["/db/start.sh"]

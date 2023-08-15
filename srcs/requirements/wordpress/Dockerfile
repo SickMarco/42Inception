@@ -1,3 +1,3 @@
 FROM alpine:3.17
 
-RUN apk update && apk --no-cache add #WIP
+RUN apk update
