@@ -13,15 +13,19 @@ down:
 	@echo "\e[31mShutdown\e[0m"
 	@docker-compose -f $(COMPOSE_FILE) down
 
-fclean:
+clean:
 	@echo "\e[31mStopping containers && Removing images\e[0m"
 	@docker-compose -f $(COMPOSE_FILE) down --rmi all
+
+fclean: clean
 	@docker container prune -f
 	@docker builder prune -af
 
 clean-volumes:
 	@echo "\e[31mRemoving volumes\e[0m"
 	@docker volume prune -f
+	@sudo rm -rf data/db_data
+	@mkdir data/db_data
 
 re: fclean build
 
