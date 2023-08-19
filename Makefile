@@ -32,6 +32,6 @@ re: fclean build
 debug:
 	@docker-compose -f $(COMPOSE_FILE) logs
 
-.PHONY: build up down clean clean-volumes debug
+.PHONY: build up down clean fclean clean-volumes debug re
 
 

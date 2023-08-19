@@ -1,6 +1,6 @@
 FROM alpine:3.17
 
-RUN apk update && apk add --no-cache php81 php81-fpm php81-mysqli
+RUN apk update && apk add --no-cache php81 php81-fpm php81-mysqli && rm -rf /var/cache/apk/*
 
 #COPY conf/php-fmp.conf /etc/php81/php-fpm.d/php-fmp.conf
 
