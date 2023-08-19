@@ -29,7 +29,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data/wp_data:/var/www/html
+      - wp_volume:/var/www/html
     restart: unless-stopped
 
   nginx:
@@ -48,6 +48,7 @@ services:
       - .env
     volumes:
       - ${CERTS_SSL}:/etc/nginx/certs/
+      - wp_volume:/var/www/html
     restart: unless-stopped
 
 networks:

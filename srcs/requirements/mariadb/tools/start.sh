@@ -1,8 +1,9 @@
 #!/bin/sh
 
+mkdir -p /run/mysqld
+
 if [ ! -d /var/lib/mysql/$MYSQL_DATABASE ]; then
 
-mkdir -p /run/mysqld
 mysql_install_db --user=root
 
 cat << EOF > init.sql
