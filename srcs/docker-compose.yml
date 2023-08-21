@@ -62,6 +62,7 @@ volumes:
       o: bind
       device: "/home/mbozzi/Scrivania/42Inception/data/db_data"
     name: "db_volume"
+
   wp_volume:
     driver: local
     driver_opts:

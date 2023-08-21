@@ -24,8 +24,8 @@ fclean: clean
 clean-volumes:
 	@echo "\e[31mRemoving volumes\e[0m"
 	@docker volume prune -f
-	@sudo rm -rf data/db_data
-	@mkdir data/db_data
+	@sudo rm -rf data/db_data data/wp_data
+	@mkdir data/db_data data/wp_data
 
 re: fclean build
 
