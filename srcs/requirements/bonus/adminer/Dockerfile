@@ -1,0 +1,13 @@
+FROM alpine:3.17
+
+RUN apk update && apk --no-cache add wget php81 php81-mysqli php81-session && rm -rf /var/cache/apk/*
+
+WORKDIR /var/www/html
+
+RUN wget https://www.adminer.org/latest.php -O adminer.php
+
+COPY conf/php.ini /etc/php81/php.ini
+
+EXPOSE 8080
+
+CMD ["php81", "-S", "0.0.0.0:8080", "adminer.php"]
