@@ -51,6 +51,18 @@ services:
       - wp_volume:/var/www/html
     restart: unless-stopped
 
+  redis:
+    build:
+      context: ./requirements/redis/
+      dockerfile: Dockerfile
+    depends_on:
+      - wordpress
+    networks:
+      inception_network:
+        aliases:
+          - rds
+    restart: unless-stopped
+
 networks:
   inception_network:
 

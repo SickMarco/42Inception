@@ -15,6 +15,10 @@ define('DB_HOST', 'db');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', 'utf8_general_ci');
 define( 'WP_DEBUG', true );
+define('WP_ALLOW_REPAIR', true);
+define('WP_CACHE', true);
+define('WP_REDIS_HOST', 'rds');
+define('WP_REDIS_PORT', '6379');
 EOF
 
 echo '$table_prefix' = "'wp_';" >> wp-config.php
