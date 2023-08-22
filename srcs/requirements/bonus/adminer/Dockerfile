@@ -8,6 +8,4 @@ RUN wget https://www.adminer.org/latest.php -O adminer.php
 
 COPY conf/php.ini /etc/php81/php.ini
 
-EXPOSE 8080
-
 CMD ["php81", "-S", "0.0.0.0:8080", "adminer.php"]
