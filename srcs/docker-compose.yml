@@ -21,7 +21,7 @@ services:
       context: ./requirements/wordpress/
       dockerfile: Dockerfile
     depends_on:
-      - mariadb
+      - ftp
     networks:
       inception_network:
         aliases:
@@ -61,6 +61,24 @@ services:
       inception_network:
         aliases:
           - rds
+    restart: unless-stopped
+
+  ftp:
+    build:
+      context: ./requirements/ftp/
+      dockerfile: Dockerfile
+    depends_on:
+      - mariadb
+    ports:
+      - "21:21"
+    networks:
+      inception_network:
+        aliases:
+          - ftp
+    env_file:
+      - .env
+    volumes:
+      - wp_volume:/ftp
     restart: unless-stopped
 
 networks:
