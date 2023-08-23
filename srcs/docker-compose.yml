@@ -41,6 +41,7 @@ services:
     ports:
       - "443:443"
       - "8080:8080"
+      - "80:80"
     networks:
       inception_network:
         aliases:
@@ -92,6 +93,18 @@ services:
       inception_network:
         aliases:
           - adm
+    restart: unless-stopped
+
+  website:
+    build:
+      context: ./requirements/bonus/static_website
+      dockerfile: Dockerfile
+    depends_on:
+      - nginx
+    networks:
+      inception_network:
+        aliases:
+          - web
     restart: unless-stopped
 
 networks:

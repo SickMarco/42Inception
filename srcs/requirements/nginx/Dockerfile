@@ -8,4 +8,6 @@ EXPOSE 443/tcp
 
 EXPOSE 8080
 
+EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
