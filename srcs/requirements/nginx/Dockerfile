@@ -10,4 +10,6 @@ EXPOSE 8080
 
 EXPOSE 80
 
+EXPOSE 9042
+
 CMD ["nginx", "-g", "daemon off;"]

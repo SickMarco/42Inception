@@ -42,6 +42,7 @@ services:
       - "443:443"
       - "8080:8080"
       - "80:80"
+      - "9042:9042"
     networks:
       inception_network:
         aliases:
@@ -105,6 +106,18 @@ services:
       inception_network:
         aliases:
           - web
+    restart: unless-stopped
+  
+  portainer:
+    build:
+      context: ./requirements/bonus/portainer
+      dockerfile: Dockerfile
+    networks:
+      inception_network:
+        aliases:
+          - portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
 
 networks:
