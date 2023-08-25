@@ -6,6 +6,4 @@ COPY conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 COPY tools/ftp.sh /ftp.sh
 
-EXPOSE 21
-
 CMD ["./ftp.sh"]

@@ -6,4 +6,8 @@ COPY conf/my.cnf /etc/mysql/my.cnf
 
 COPY tools/start.sh /db/start.sh
 
+RUN mkdir -p /run/mysqld /var/log/mysql && chown -R mysql:mysql /var/lib/mysql /run/mysqld /var/log/mysql
+
+USER mysql
+
 CMD ["/db/start.sh"]

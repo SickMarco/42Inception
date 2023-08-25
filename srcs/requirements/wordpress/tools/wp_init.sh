@@ -2,7 +2,7 @@
 
 if [ ! -d /var/www/html/wp-admin ]; then
 wget https://wordpress.org/latest.tar.gz
-tar -xzvf latest.tar.gz -C /var/www/html --strip-components=1
+tar -xzvf latest.tar.gz -C /var/www/html --strip-components=1 > /dev/null
 rm latest.tar.gz
 
 cat << EOF > wp-config.php

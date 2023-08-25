@@ -16,28 +16,15 @@ services:
       - db_volume:/var/lib/mysql
     restart: unless-stopped
 
-  wordpress:
-    build:
-      context: ./requirements/wordpress/
-      dockerfile: Dockerfile
-    depends_on:
-      - ftp
-    networks:
-      inception_network:
-        aliases:
-          - wp
-    env_file:
-      - .env
-    volumes:
-      - wp_volume:/var/www/html
-    restart: unless-stopped
-
   nginx:
     build:
       context: ./requirements/nginx/
       dockerfile: Dockerfile
     depends_on:
       - wordpress
+      - adminer
+      - website
+      - portainer
     ports:
       - "443:443"
       - "8080:8080"
@@ -51,6 +38,22 @@ services:
       - .env
     volumes:
       - ${CERTS_SSL}:/etc/nginx/certs/
+      - wp_volume:/var/www/html
+    restart: unless-stopped
+
+  wordpress:
+    build:
+      context: ./requirements/wordpress/
+      dockerfile: Dockerfile
+    depends_on:
+      - mariadb
+    networks:
+      inception_network:
+        aliases:
+          - wp
+    env_file:
+      - .env
+    volumes:
       - wp_volume:/var/www/html
     restart: unless-stopped
 
@@ -70,8 +73,6 @@ services:
     build:
       context: ./requirements/bonus/ftp
       dockerfile: Dockerfile
-    depends_on:
-      - mariadb
     ports:
       - "21:21"
     networks:
@@ -100,8 +101,6 @@ services:
     build:
       context: ./requirements/bonus/static_website
       dockerfile: Dockerfile
-    depends_on:
-      - nginx
     networks:
       inception_network:
         aliases:
@@ -129,7 +128,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: "/home/mbozzi/Scrivania/42Inception/data/db_data"
+      device: "/home/${USER}/data/db_data"
     name: "db_volume"
 
   wp_volume:
@@ -137,5 +136,5 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: "/home/mbozzi/Scrivania/42Inception/data/wp_data"
+      device: "/home/${USER}/data/wp_data"
     name: "wp_volume"
