@@ -1,9 +1,13 @@
 #!/bin/sh
 
 if [ ! -d /var/www/html/wp-admin ]; then
-wget https://wordpress.org/latest.tar.gz
-tar -xzvf latest.tar.gz -C /var/www/html --strip-components=1 > /dev/null
-rm latest.tar.gz
+
+wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+chmod +x wp-cli.phar
+mv wp-cli.phar /usr/local/bin/wp
+cd /var/www/html
+
+wp core download
 
 cat << EOF > wp-config.php
 <?php
@@ -31,7 +35,9 @@ require_once ABSPATH . 'wp-settings.php';
 ?>
 EOF
 
-mv wp-config.php /var/www/html
+wp core install --url=https://localhost --title="${WP_TITLE}" --admin_user="${WP_ADMIN}" --admin_password="${WP_PASS}" --admin_email="${WP_EMAIL}"
+wp plugin install redis-cache --activate
+wp redis enable
 fi
 
 mkdir -p /var/log/php-fpm/ /run/php-fpm/

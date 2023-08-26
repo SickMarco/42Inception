@@ -1,6 +1,6 @@
 FROM alpine:3.17
 
-RUN apk update && apk add --no-cache php81 php81-fpm php81-mysqli php81-redis && rm -rf /var/cache/apk/*
+RUN apk update && apk add --no-cache php81 php81-fpm php81-mysqli php81-phar php81-mbstring php81-redis php81-ctype && rm -rf /var/cache/apk/*
 
 COPY conf/php.ini /etc/php81/conf.d/50-setting.ini
 
