@@ -1,6 +1,6 @@
 FROM alpine:3.17
 
-RUN apk update && apk --no-cache add wget php81 php81-mysqli php81-session && rm -rf /var/cache/apk/*
+RUN apk update && apk --no-cache add wget php81 php81-session php81-mysqlnd && rm -rf /var/cache/apk/*
 
 WORKDIR /var/www/html
 
