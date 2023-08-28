@@ -73,6 +73,8 @@ services:
     build:
       context: ./requirements/bonus/ftp
       dockerfile: Dockerfile
+    depends_on:
+    - wordpress
     ports:
       - "21:21"
     networks:
