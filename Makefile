@@ -20,10 +20,12 @@ clean:
 fclean: clean
 	@docker container prune -f
 	@docker builder prune -af
+	@docker system prune -a
 
 clean-volumes:
 	@echo "\e[31mRemoving volumes\e[0m"
-	@docker volume prune -f
+	@docker volume rm db_volume
+	@docker volume rm wp_volume
 	@sudo rm -rf /home/${USER}/data/
 	@mkdir -p /home/${USER}/data/db_data /home/${USER}/data/wp_data
 
